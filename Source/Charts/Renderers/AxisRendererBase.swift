@@ -127,7 +127,7 @@ open class AxisRendererBase: Renderer
         if intervalSigDigit > 5
         {
             // Use one order of magnitude higher, to avoid intervals like 0.9 or 90
-            interval = floor(10.0 * Double(intervalMagnitude))
+            interval = ceil(10.0 * Double(intervalMagnitude))
         }
         
         var n = axis.centerAxisLabelsEnabled ? 1 : 0
