@@ -206,10 +206,14 @@ open class LegendRenderer: Renderer
         
         let labelFont = legend.font
         let labelTextColor = legend.textColor
-        let labelLineHeight = labelFont.lineHeight
-        let formYOffset = labelLineHeight / 2.0
-
+        var labelLineHeight = labelFont.lineHeight
+        let labelAttrs = [NSFontAttributeName: labelFont]
         var entries = legend.entries
+        for e in entries {
+            let labelHeight = e.label?.size(attributes: labelAttrs).height ?? 0
+            labelLineHeight = max(labelLineHeight, labelHeight)
+        }
+        let formYOffset = labelLineHeight / 2.0
         
         let defaultFormSize = legend.formSize
         let formToTextSpace = legend.formToTextSpace

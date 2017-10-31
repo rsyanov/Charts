@@ -391,7 +391,12 @@ open class Legend: ComponentBase
             
         case .horizontal:
             
-            let labelLineHeight = labelFont.lineHeight
+            let labelAttrs = [NSFontAttributeName: labelFont]
+            var labelLineHeight = labelFont.lineHeight
+            for e in entries {
+                let labelHeight = e.label?.size(attributes: labelAttrs).height ?? 0
+                labelLineHeight = max(labelLineHeight, labelHeight)
+            }
             
             let contentWidth: CGFloat = viewPortHandler.contentWidth * maxSizePercent
             
@@ -410,7 +415,6 @@ open class Legend: ComponentBase
             
             // Start calculating layout
             
-            let labelAttrs = [NSFontAttributeName: labelFont]
             var maxLineWidth: CGFloat = 0.0
             var currentLineWidth: CGFloat = 0.0
             var requiredWidth: CGFloat = 0.0
